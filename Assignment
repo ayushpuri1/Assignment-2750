@@ -11,7 +11,60 @@ Put Assignment in here label question:
     marginTop: 10,
   },
 
-3.Ayush
+3.Ayush-
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+
+export default function DogDropdown() {
+  const [dogRate, setDogRate] = useState(null);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>Select Dog + Hourly Rate:</Text>
+
+      <Picker
+        selectedValue={dogRate}
+        onValueChange={(value) => setDogRate(value)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Select Dog" value={null} />
+        <Picker.Item label="Finn - $15" value="15" />
+        <Picker.Item label="Bluey - $18" value="18" />
+        <Picker.Item label="Max - $15" value="15" />
+        <Picker.Item label="Bella - $20" value="20" />
+        <Picker.Item label="Luna - $22" value="22" />
+      </Picker>
+
+      {dogRate && (
+        <Text style={styles.selected}>Selected Rate: ${dogRate}/hr</Text>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 40,
+    padding: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  picker: {
+    backgroundColor: '#fff',
+    height: 50,
+  },
+  selected: {
+    marginTop: 200,
+    fontSize: 16,
+    color: 'green',
+    fontWeight: 'bold',
+    textAlign:'center'
+  },
+});
 4.Ayan
 5.Tajwar
 6.everyone
