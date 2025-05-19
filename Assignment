@@ -8,7 +8,7 @@ Put Assignment in here label question:
     height: 100,
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: 10, 
   },
 
 3.Ayush-
@@ -67,5 +67,132 @@ const styles = StyleSheet.create({
 });
 4.Ayan
 5.Tajwar
-6.everyone
-7.whoever submits
+6.kirthika 
+7.kirthika 
+
+
+
+
+
+FULL CODE: 
+
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, StyleSheet, Button, Image } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <View style={styles.row1}>
+          <Text style={styles.heading}> Welcome to SDCS </Text>
+          <Image source={require('./assets/logo.png')} style={styles.logo} />
+        </View>
+
+
+        <DogDropdown />
+
+        <View>
+          <Button title="CALCULATE" />
+          <Text style={styles.heading}> Placeholder </Text>
+        </View>
+      </View>
+
+      <View style={styles.bottomTextContainer}>
+        <Text style={styles.bottomText}> App developed by Kirthika, Ayan, Ayush, Malk</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+
+// DogDropdown component
+function DogDropdown() {
+  const [dogRate, setDogRate] = useState(null);
+
+  return (
+    <View style={dropdownStyles.container}>
+      <Text style={dropdownStyles.label}>Select Dog + Hourly Rate:</Text>
+
+      <Picker
+        selectedValue={dogRate}
+        onValueChange={(value) => setDogRate(value)}
+        style={dropdownStyles.picker}
+      >
+        <Picker.Item label="Select Dog" value={null} />
+        <Picker.Item label="Finn - $15" value="15" />
+        <Picker.Item label="Bluey - $18" value="18" />
+        <Picker.Item label="Max - $15" value="15" />
+        <Picker.Item label="Bella - $20" value="20" />
+        <Picker.Item label="Luna - $22" value="22" />
+      </Picker>
+
+      {dogRate && (
+        <Text style={dropdownStyles.selected}>Selected Rate: ${dogRate}/hr</Text>
+      )}
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#b3ecf0',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingBottom: 10,
+  },
+  heading: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 30,
+  },
+  row1: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: -65,
+  },
+  bottomTextContainer: {
+    alignItems: 'center',
+    padding: 10,
+  },
+  bottomText: {
+    fontSize: 11,
+    color: '#555',
+  },
+});
+
+
+const dropdownStyles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    marginBottom: 100,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  picker: {
+    backgroundColor: '#fff',
+    height: 50,
+  },
+  selected: {
+    marginTop: 20,
+    fontSize: 16,
+    color: 'green',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
+
