@@ -65,7 +65,42 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
 });
-4.Ayan
+4. Ayan –
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+
+function ServiceDropdown() {
+  const [serviceRate, setServiceRate] = useState(null);
+
+  return (
+    <View style={dropdownStyles.container}>
+      <Text style={dropdownStyles.label}>Select Service + Cost:</Text>
+
+      <Picker
+        selectedValue={serviceRate}
+        onValueChange={(value) => setServiceRate(value)}
+        style={dropdownStyles.picker}
+      >
+        <Picker.Item label="Select Service" value={null} />
+        <Picker.Item label="Grooming - $20" value="20" />
+        <Picker.Item label="Walking - $10" value="10" />
+        <Picker.Item label="Training - $25" value="25" />
+        <Picker.Item label="Feeding - $10" value="10" />
+        <Picker.Item label="Vet Visit - $30" value="30" />
+      </Picker>
+
+      {serviceRate && (
+        <Text style={dropdownStyles.selected}>
+          Selected Service Cost: ${serviceRate}
+        </Text>
+      )}
+    </View>
+  );
+}
+
+
+
 5.Tajwar
 6.kirthika 
 7.kirthika 
@@ -92,6 +127,8 @@ export default function App() {
 
 
         <DogDropdown />
+        <ServiceDropdown />
+
 
         <View>
           <Button title="CALCULATE" />
@@ -130,6 +167,34 @@ function DogDropdown() {
 
       {dogRate && (
         <Text style={dropdownStyles.selected}>Selected Rate: ${dogRate}/hr</Text>
+      )}
+    </View>
+  );
+}
+
+// ServiceDropdown component
+function ServiceDropdown() {
+  const [serviceRate, setServiceRate] = useState(null);
+
+  return (
+    <View style={dropdownStyles.container}>
+      <Text style={dropdownStyles.label}>Select Service + Cost:</Text>
+
+      <Picker
+        selectedValue={serviceRate}
+        onValueChange={(value) => setServiceRate(value)}
+        style={dropdownStyles.picker}
+      >
+        <Picker.Item label="Select Service" value={null} />
+        <Picker.Item label="Grooming - $20" value="20" />
+        <Picker.Item label="Walking - $10" value="10" />
+        <Picker.Item label="Training - $25" value="25" />
+        <Picker.Item label="Feeding - $10" value="10" />
+        <Picker.Item label="Vet Visit - $30" value="30" />
+      </Picker>
+
+      {serviceRate && (
+        <Text style={dropdownStyles.selected}>Selected Service Cost: ${serviceRate}</Text>
       )}
     </View>
   );
