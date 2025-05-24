@@ -12,11 +12,12 @@ import { Picker } from '@react-native-picker/picker';
 
 export default function App() {
   const [dogRate, setDogRate] = useState(null);
+  const [hours, setHours] = useState(null);
   const [serviceRate, setServiceRate] = useState(null);
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
-    const dog = dogRate ? parseInt(dogRate) : 0;
+    const dog = dogRate && hours ? parseInt(dogRate) * parseInt(hours) : 0;
     const service = serviceRate ? parseInt(serviceRate) : 0;
     setTotal(dog + service);
   };
@@ -47,6 +48,18 @@ export default function App() {
             <Picker.Item label="Luna - $22" value="22" />
           </Picker>
 
+          <Text style={dropdownStyles.label}>Select Hours of Care:</Text>
+          <Picker
+            selectedValue={hours}
+            onValueChange={(value) => setHours(value)}
+            style={dropdownStyles.picker}
+          >
+            <Picker.Item label="Select Hours" value={null} />
+            {[1, 2, 3, 4, 5].map((hr) => (
+              <Picker.Item label={`${hr}`} value={hr.toString()} key={hr} />
+            ))}
+          </Picker>
+
           <Text style={dropdownStyles.label}>Select Service + Cost:</Text>
           <Picker
             selectedValue={serviceRate}
@@ -74,7 +87,7 @@ export default function App() {
         <Text>2. Kirthika - Logo</Text>
         <Text>3. Ayush - Dog Dropdown</Text>
         <Text>4. Ayan - Service Dropdown</Text>
-        <Text>5. Tajwar - Total Cost Calculation</Text>
+        <Text>5. Tajwar - Hours Dropdown + Total Cost</Text>
         <Text>6. Kirthika</Text>
         <Text>7. Kirthika</Text>
       </View>
