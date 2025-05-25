@@ -1,38 +1,26 @@
 import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Image,
-  Platform,
-} from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Button, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 export default function App() {
   const [dogRate, setDogRate] = useState(null);
+  const [serviceRate, setServiceRate] = useState(null);
   const [hours, setHours] = useState(null);
-  const [serviceRate, setServiceRate] = useState(null); 
-  const [quantity, setQuantity] = useState(null);     
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
     const dog = dogRate && hours ? parseInt(dogRate) * parseInt(hours) : 0;
-    const service = serviceRate && quantity ? parseInt(serviceRate) * parseInt(quantity) : 0;
-    setTotal(dog + service); 
+    const service = serviceRate ? parseInt(serviceRate) : 0;
+    setTotal(dog + service);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.heading}>Welcome to SDCS</Text>
-        <Image
-          source={{
-            uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emoji_u1f436.svg/1200px-Emoji_u1f436.svg.png',
-          }}
-          style={styles.logo}
-        />
+        <View style={styles.row1}>
+          <Text style={styles.heading}> Welcome to SDCS </Text>
+          <Image source={require('./assets/logo.png')} style={styles.logo} />
+        </View>
 
         <View style={dropdownStyles.container}>
           <Text style={dropdownStyles.label}>Select Dog + Hourly Rate:</Text>
@@ -41,25 +29,16 @@ export default function App() {
             onValueChange={(value) => setDogRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Dog" value={null} />
+            <Picker.Item label="Select Dog" value={0} />
             <Picker.Item label="Finn - $15" value="15" />
             <Picker.Item label="Bluey - $18" value="18" />
             <Picker.Item label="Max - $15" value="15" />
             <Picker.Item label="Bella - $20" value="20" />
             <Picker.Item label="Luna - $22" value="22" />
           </Picker>
-
-          <Text style={dropdownStyles.label}>Select Hours of Care:</Text>
-          <Picker
-            selectedValue={hours}
-            onValueChange={(value) => setHours(value)}
-            style={dropdownStyles.picker}
-          >
-            <Picker.Item label="Select Hours" value={null} />
-            {[1, 2, 3, 4, 5].map((hr) => (
-              <Picker.Item label={`${hr}`} value={hr.toString()} key={hr} />
-            ))}
-          </Picker>
+          {dogRate && (
+            <Text style={dropdownStyles.selected}>Selected Rate: ${dogRate}/hr</Text>
+          )}
 
           <Text style={dropdownStyles.label}>Select Service + Cost:</Text>
           <Picker
@@ -67,57 +46,107 @@ export default function App() {
             onValueChange={(value) => setServiceRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Service" value={null} />
+            <Picker.Item label="Select Service" value={0} />
             <Picker.Item label="Grooming - $20" value="20" />
             <Picker.Item label="Walking - $10" value="10" />
             <Picker.Item label="Training - $25" value="25" />
             <Picker.Item label="Feeding - $10" value="10" />
             <Picker.Item label="Vet Visit - $30" value="30" />
           </Picker>
+          {serviceRate && (
+            <Text style={dropdownStyles.selected}>
+              Selected Service Cost: ${serviceRate}
+            </Text>
+          )}
+
+          <Text style={dropdownStyles.label}>Select Hours:</Text>
+          <Picker
+            selectedValue={hours}
+            onValueChange={(value) => setHours(value)}
+            style={dropdownStyles.picker}
+          >
+            <Picker.Item label="Select Hours" value={0} />
+            {[1, 2, 3, 4, 5].map((hr) => (
+              <Picker.Item label={`${hr}`} value={hr.toString()} key={hr} />
+            ))}
+          </Picker>
+          {hours && (
+            <Text style={dropdownStyles.selected}>
+              Selected Hours: {hours}
+            </Text>
+          )}
         </View>
 
-        <View style={styles.buttonSection}>
+        <View style={{ alignItems: 'center', marginTop: 10 }}>
           <Button title="CALCULATE" onPress={calculateTotal} />
-          <Text style={styles.result}>Total Cost: ${total}</Text>
+          <Text style={styles.heading}> Total Cost: ${total} </Text>
         </View>
       </View>
 
       <View style={styles.bottomTextContainer}>
-        <Text style={styles.bottomText}>App developed by:</Text>
-        <Text>1. Malk</Text>
-        <Text>2. Kirthika - Logo</Text>
-        <Text>3. Ayush - Dog Dropdown</Text>
-        <Text>4. Ayan - Service Dropdown</Text>
-        <Text>5. Tajwar - Hours Dropdown + Total Cost</Text>
-        <Text>6. Kirthika</Text>
-        <Text>7. Kirthika</Text>
+        <Text style={styles.bottomText}>App developed by Kirthika, Ayan, Ayush, Malk, Tajwar</Text>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#b3ecf0' },
-  content: { flex: 1, justifyContent: 'space-between', paddingBottom: 10 },
-  heading: { fontSize: 20, textAlign: 'center', marginTop: 30 },
+  container: {
+    flex: 1,
+    backgroundColor: '#bdf1f5',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    paddingBottom: 10,
+  },
+  heading: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  row1: {
+    alignItems: 'center',
+    marginBottom: -55,
+  },
   logo: {
-    width: 100,
-    height: 100,
+    width: 270,
+    height: 270,
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: -70,
   },
-  buttonSection: { alignItems: 'center', marginTop: 10 },
-  result: { marginTop: 10, fontSize: 16, fontWeight: 'bold', color: 'green' },
-  bottomTextContainer: { alignItems: 'center', padding: 10 },
-  bottomText: { fontSize: 12, color: '#555' },
+  bottomTextContainer: {
+    alignItems: 'center',
+    padding: 10,
+  },
+  bottomText: {
+    fontSize: 11,
+    color: '#555',
+  },
 });
 
 const dropdownStyles = StyleSheet.create({
-  container: { paddingHorizontal: 20, marginBottom: 10 },
-  label: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
+  container: {
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 10,
+    marginBottom: 5,
+  },
   picker: {
-    backgroundColor: Platform.OS === 'web' ? '#fff' : undefined,
-    height: 50,
+    backgroundColor: '#fff',
+    height: 30,
+  },
+  selected: {
+    marginTop: 5,
+    fontSize: 12,
+    color: 'green',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
+
