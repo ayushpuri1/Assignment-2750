@@ -35,7 +35,7 @@ export default function App() {
             onValueChange={(value) => setDogRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Dog" value={null} />
+            <Picker.Item label="Select Dog" value={0} />
             <Picker.Item label="Finn - $15" value="15" />
             <Picker.Item label="Bluey - $18" value="18" />
             <Picker.Item label="Max - $15" value="15" />
@@ -52,7 +52,7 @@ export default function App() {
             onValueChange={(value) => setServiceRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Service" value={null} />
+            <Picker.Item label="Select Service" value={0} />
             <Picker.Item label="Grooming - $20" value="20" />
             <Picker.Item label="Walking - $10" value="10" />
             <Picker.Item label="Training - $25" value="25" />
@@ -71,7 +71,7 @@ export default function App() {
             onValueChange={(value) => setHours(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Hours" value={null} />
+            <Picker.Item label="Select Hours" value={0} />
             {[1, 2, 3, 4, 5].map((hr) => (
               <Picker.Item label={`${hr}`} value={hr.toString()} key={hr} />
             ))}
@@ -88,7 +88,7 @@ export default function App() {
             onValueChange={(value) => setQuantity(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Quantity" value={null} />
+            <Picker.Item label="Select Quantity" value={0} />
             {[1, 2, 3, 4, 5].map((qty) => (
               <Picker.Item label={`${qty}`} value={qty.toString()} key={qty} />
             ))}
