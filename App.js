@@ -3,10 +3,10 @@ import { SafeAreaView, View, Text, StyleSheet, Button, Image } from 'react-nativ
 import { Picker } from '@react-native-picker/picker';
 
 export default function App() {
-  const [dogRate, setDogRate] = useState(null);
-  const [serviceRate, setServiceRate] = useState(null);
-  const [hours, setHours] = useState(null);
-  const [quantity, setQuantity] = useState(null);
+  const [dogRate, setDogRate] = useState("");
+  const [serviceRate, setServiceRate] = useState("");
+  const [hours, setHours] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
@@ -35,7 +35,7 @@ export default function App() {
             onValueChange={(value) => setDogRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Dog" value={0} />
+            <Picker.Item label="Select Dog" value={""} />
             <Picker.Item label="Finn - $15" value="15" />
             <Picker.Item label="Bluey - $18" value="18" />
             <Picker.Item label="Max - $15" value="15" />
@@ -52,7 +52,7 @@ export default function App() {
             onValueChange={(value) => setServiceRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Service" value={0} />
+            <Picker.Item label="Select Service" value={""} />
             <Picker.Item label="Grooming - $20" value="20" />
             <Picker.Item label="Walking - $10" value="10" />
             <Picker.Item label="Training - $25" value="25" />
@@ -71,7 +71,7 @@ export default function App() {
             onValueChange={(value) => setHours(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Hours" value={0} />
+            <Picker.Item label="Select Hours" value={""} />
             {[1, 2, 3, 4, 5].map((hr) => (
               <Picker.Item label={`${hr}`} value={hr.toString()} key={hr} />
             ))}
@@ -88,7 +88,7 @@ export default function App() {
             onValueChange={(value) => setQuantity(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Quantity" value={0} />
+            <Picker.Item label="Select Quantity" value={""} />
             {[1, 2, 3, 4, 5].map((qty) => (
               <Picker.Item label={`${qty}`} value={qty.toString()} key={qty} />
             ))}
