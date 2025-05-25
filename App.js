@@ -8,11 +8,15 @@ export default function App() {
   const [hours, setHours] = useState(null);
   const [total, setTotal] = useState(0);
 
-  const calculateTotal = () => {
-    const dog = dogRate && hours ? parseInt(dogRate) * parseInt(hours) : 0;
-    const service = serviceRate ? parseInt(serviceRate) : 0;
+const calculateTotal = () => {
+  if (dogRate && serviceRate && hours) {
+    const dog = parseInt(dogRate) * parseInt(hours);
+    const service = parseInt(serviceRate);
     setTotal(dog + service);
-  };
+  } else {
+    setTotal(0); // Reset to 0 if incomplete
+  }
+};
 
   return (
     <SafeAreaView style={styles.container}>
