@@ -6,17 +6,19 @@ export default function App() {
   const [dogRate, setDogRate] = useState(null);
   const [serviceRate, setServiceRate] = useState(null);
   const [hours, setHours] = useState(null);
+  const [quantity, setQuantity] = useState(null);
   const [total, setTotal] = useState(0);
 
-const calculateTotal = () => {
-  if (dogRate && serviceRate && hours) {
-    const dog = parseInt(dogRate) * parseInt(hours);
-    const service = parseInt(serviceRate);
-    setTotal(dog + service);
-  } else {
-    setTotal(0); // Reset to 0 if incomplete
-  }
-};
+  const calculateTotal = () => {
+    if (dogRate && serviceRate && hours && quantity) {
+      const dog = parseInt(dogRate) * parseInt(hours);
+      const service = parseInt(serviceRate);
+      const qty = parseInt(quantity);
+      setTotal((dog + service) * qty);
+    } else {
+      setTotal(0); 
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,7 +35,7 @@ const calculateTotal = () => {
             onValueChange={(value) => setDogRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Dog" value={0} />
+            <Picker.Item label="Select Dog" value={null} />
             <Picker.Item label="Finn - $15" value="15" />
             <Picker.Item label="Bluey - $18" value="18" />
             <Picker.Item label="Max - $15" value="15" />
@@ -50,7 +52,7 @@ const calculateTotal = () => {
             onValueChange={(value) => setServiceRate(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Service" value={0} />
+            <Picker.Item label="Select Service" value={null} />
             <Picker.Item label="Grooming - $20" value="20" />
             <Picker.Item label="Walking - $10" value="10" />
             <Picker.Item label="Training - $25" value="25" />
@@ -69,7 +71,7 @@ const calculateTotal = () => {
             onValueChange={(value) => setHours(value)}
             style={dropdownStyles.picker}
           >
-            <Picker.Item label="Select Hours" value={0} />
+            <Picker.Item label="Select Hours" value={null} />
             {[1, 2, 3, 4, 5].map((hr) => (
               <Picker.Item label={`${hr}`} value={hr.toString()} key={hr} />
             ))}
@@ -79,11 +81,32 @@ const calculateTotal = () => {
               Selected Hours: {hours}
             </Text>
           )}
+
+          <Text style={dropdownStyles.label}>Select Quantity:</Text>
+          <Picker
+            selectedValue={quantity}
+            onValueChange={(value) => setQuantity(value)}
+            style={dropdownStyles.picker}
+          >
+            <Picker.Item label="Select Quantity" value={null} />
+            {[1, 2, 3, 4, 5].map((qty) => (
+              <Picker.Item label={`${qty}`} value={qty.toString()} key={qty} />
+            ))}
+          </Picker>
+          {quantity && (
+            <Text style={dropdownStyles.selected}>
+              Selected Quantity: {quantity}
+            </Text>
+          )}
         </View>
 
         <View style={{ alignItems: 'center', marginTop: 10 }}>
           <Button title="CALCULATE" onPress={calculateTotal} />
-          <Text style={styles.heading}> Total Cost: ${total} </Text>
+          {(dogRate && serviceRate && hours && quantity) ? (
+            <Text style={styles.heading}> Total Cost: ${total}</Text>
+          ) : (
+            <Text style={styles.heading}> Total Cost: $0 </Text>
+          )}
         </View>
       </View>
 
@@ -153,4 +176,3 @@ const dropdownStyles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
