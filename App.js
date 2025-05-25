@@ -13,13 +13,14 @@ import { Picker } from '@react-native-picker/picker';
 export default function App() {
   const [dogRate, setDogRate] = useState(null);
   const [hours, setHours] = useState(null);
-  const [serviceRate, setServiceRate] = useState(null);
+  const [serviceRate, setServiceRate] = useState(null); 
+  const [quantity, setQuantity] = useState(null);     
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
     const dog = dogRate && hours ? parseInt(dogRate) * parseInt(hours) : 0;
-    const service = serviceRate ? parseInt(serviceRate) : 0;
-    setTotal(dog + service);
+    const service = serviceRate && quantity ? parseInt(serviceRate) * parseInt(quantity) : 0;
+    setTotal(dog + service); 
   };
 
   return (
